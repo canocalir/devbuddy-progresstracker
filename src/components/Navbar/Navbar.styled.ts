@@ -23,4 +23,9 @@ const NavbarRightContainer = styled(NavbarLeftContainer)`
     align-items: center;
 `
 
-export {NavbarContainer, NavbarLeftContainer, NavbarRightContainer}
+const NavbarButtonContainer = styled.div`
+    display: flex;
+    gap: 1rem;
+`
+
+export {NavbarContainer, NavbarLeftContainer, NavbarRightContainer, NavbarButtonContainer}
