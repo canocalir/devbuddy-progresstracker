@@ -1,5 +1,4 @@
 import { NavbarContainer, NavbarLeftContainer, NavbarRightContainer } from "./Navbar.styled";
-import logo from "../../assets/logo.svg";
 import { FC } from "react";
 import { Avatar, Dropdown } from "flowbite-react";
 
@@ -7,7 +6,7 @@ const Navbar: FC = () => {
   return (
     <NavbarContainer>
       <NavbarLeftContainer>
-        <img src={logo} alt="logo" />
+        <h1>DevBuddy - Self Progress Tracker</h1>
       </NavbarLeftContainer>
       <NavbarRightContainer>
       <Dropdown
