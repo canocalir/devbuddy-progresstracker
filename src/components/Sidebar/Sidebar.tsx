@@ -1,24 +1,55 @@
-
-import { FC } from 'react'
-import SidebarLink from '../SidebarLink/SidebarLink'
-import { LogoContainer, SidebarContainer } from './Sidebar.styled'
+import { FC } from "react";
+import SidebarLink from "../SidebarLink/SidebarLink";
+import { LogoContainer, SidebarContainer } from "./Sidebar.styled";
 import logo from "../../assets/logo.svg";
+import { Link } from "react-router-dom";
 
-const Sidebar:FC = () => {
+const sidebarElements = [
+  {
+    title: "Dashboard",
+    link: "/dashboard"
+  },
+  {
+    title: "Task Management",
+    link: "/taskmanagement",
+  },
+  {
+    title: "Progress Tracking",
+    link: "/progresstracker",
+  },
+  {
+    title: "Feedback",
+    link: "/feedback",
+  },
+  {
+    title: "Resources",
+    link: "/resources",
+  },
+  {
+    title: "Mentorship",
+    link: "/mentorship",
+  },
+  {
+    title: "Reports",
+    link: "/reports",
+  },
+];
+
+const Sidebar: FC = () => {
   return (
     <SidebarContainer>
-        <LogoContainer>
+      <LogoContainer>
         <img src={logo} alt="logo" />
-        </LogoContainer>
-      <SidebarLink linkType={'Dashboard'}/>
-      <SidebarLink linkType={'Task Management'}/>
-      <SidebarLink linkType={'Progress Tracking'}/>
-      <SidebarLink linkType={'Feedback'}/>
-      <SidebarLink linkType={'Resources'}/>
-      <SidebarLink linkType={'Mentorship'}/>
-      <SidebarLink linkType={'Reports'}/>
+      </LogoContainer>
+      {sidebarElements?.map((el, id) => {
+        return (
+          <Link to={el.link} key={id}>
+            <SidebarLink linkType={el.title} />
+          </Link>
+        );
+      })}
     </SidebarContainer>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

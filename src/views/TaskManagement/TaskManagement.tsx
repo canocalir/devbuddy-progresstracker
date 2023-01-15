@@ -2,19 +2,19 @@ import styled from "styled-components";
 import PageHeading from "../../components/PageHeading/PageHeading";
 import LoggedInLayout from "../LoggedInLayout/Layout";
 
-const Dashboard = () => {
+const TaskManagement = () => {
   return (
-    <DashboardViewContainer>
+    <TaskManagementContainer>
       <LoggedInLayout>
-        <PageHeading heading={"Dashboard"} />
+        <PageHeading heading={"Task Management"} />
       </LoggedInLayout>
-    </DashboardViewContainer>
+    </TaskManagementContainer>
   );
 };
 
-export default Dashboard;
+export default TaskManagement;
 
 
-const DashboardViewContainer = styled.div`
-  
+const TaskManagementContainer = styled.div`
+    
 `
