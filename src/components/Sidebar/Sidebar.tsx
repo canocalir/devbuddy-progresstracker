@@ -1,8 +1,8 @@
 import { FC } from "react";
 import SidebarLink from "../SidebarLink/SidebarLink";
-import { LogoContainer, SidebarContainer } from "./Sidebar.styled";
 import logo from "../../assets/logo.svg";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 const sidebarElements = [
   {
@@ -53,3 +53,23 @@ const Sidebar: FC = () => {
 };
 
 export default Sidebar;
+
+
+const SidebarContainer = styled.div`
+    display: flex;
+    background-color: #7461a0;
+    padding-top: 5rem;
+    height: 100vh;
+    justify-content: flex-start;
+    flex-direction: column;
+    z-index: 1;
+`
+
+const LogoContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 5rem;
+    background-color: #ffffff;
+`

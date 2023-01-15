@@ -12,5 +12,5 @@ export default PageHeading;
 
 const HeadingMain = styled.h1`
   font-size: 2rem;
-  margin: 2rem 0 0 17rem;
+  margin: 6rem 0 0 2rem;
 `;

@@ -1,12 +1,8 @@
-import {
-  NavbarButtonContainer,
-  NavbarContainer,
-  NavbarLeftContainer,
-  NavbarRightContainer,
-} from "./Navbar.styled";
 import { FC } from "react";
 import { Avatar, Button, Dropdown } from "flowbite-react";
 import { Link, NavLink } from "react-router-dom";
+import styled from "styled-components";
+import { theme } from "../../styles/theme";
 
 const Navbar: FC = () => {
   const isLoggedIn = false; //!Todo Need to be FirebaseAuth
@@ -59,3 +55,33 @@ const Navbar: FC = () => {
 };
 
 export default Navbar;
+
+
+const NavbarContainer = styled.div`
+    background: ${theme.navbarColor};
+    height: 4rem;
+    color: #ffffff;
+    display: flex;
+    align-items:center;
+    justify-content: space-around;
+    width: 100%;
+    position: fixed;
+    z-index: 2;
+`
+
+const NavbarLeftContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+
+const NavbarRightContainer = styled(NavbarLeftContainer)`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+
+const NavbarButtonContainer = styled.div`
+    display: flex;
+    gap: 1rem;
+`
