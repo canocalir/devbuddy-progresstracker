@@ -9,11 +9,10 @@ const TaskManagement = () => {
       <LoggedInLayout>
       <PageHeading heading={"Task Management"} />
         <TaskManagementContainer>
-          
           <TaskStatusContainer>
-            <TaskStatusSection />
-            <TaskStatusSection />
-            <TaskStatusSection />
+            <TaskStatusSection title={'Backlog'}/>
+            <TaskStatusSection title={'In Progress'}/>
+            <TaskStatusSection title={'Completed'}/>
           </TaskStatusContainer>
         </TaskManagementContainer>
       </LoggedInLayout>
