@@ -1,9 +1,12 @@
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, SyntheticEvent, useEffect, useId, useRef, useState } from "react";
 import {
   TaskAddButton,
   TaskPriorityContainer,
   TaskStatusSectionContainer,
 } from "./TaskStatusSection.styled";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { addTask } from "../../features/taskSlice";
+import Task from "../Task/Task";
 
 type Props = {
   title: string;
@@ -24,25 +27,22 @@ const priorities = [
   },
 ];
 
-type TaskProps = {
-  title?: string;
-  content?: string;
-  priority: number;
-  inProgress: boolean;
-  completed: boolean;
-  inBacklog: boolean;
-};
+
 
 const TaskStatusSection = ({ title }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [taskValues, setTaskValues] = useState<TaskProps>({
+  const [taskValues, setTaskValues] = useState({
     title: "",
     content: "",
     priority: 0,
     inProgress: false,
     completed: false,
     inBacklog: false,
+    id: new Date().getMilliseconds()
   });
+  
+  const dispatch = useAppDispatch()
+  const {tasks} = useAppSelector(state => state.tasks)
 
   const titleRef = useRef<HTMLHeadingElement>(null);
 
@@ -55,11 +55,14 @@ const TaskStatusSection = ({ title }: Props) => {
       setTaskValues({ ...taskValues, inBacklog: true });
       if (taskValues.inBacklog)
         return setTaskValues({ ...taskValues, inBacklog: false });
-    } else if (titleRef.current?.textContent === "In Progress") {
+    } 
+    
+    if (titleRef.current?.textContent === "In Progress") {
       setTaskValues({ ...taskValues, inProgress: true });
       if (taskValues.inProgress)
         return setTaskValues({ ...taskValues, inProgress: false });
-    } else {
+    }
+    if(titleRef.current?.textContent === "Completed"){
       setTaskValues({ ...taskValues, completed: true });
       if (taskValues.completed)
         return setTaskValues({ ...taskValues, completed: false });
@@ -68,8 +71,8 @@ const TaskStatusSection = ({ title }: Props) => {
 
   useEffect(() => {
     conditionalStatus();
-  }, [isOpen]);
-
+  }, [isOpen, addTask]);
+  
   const priorityIDHandler = priorities.map((priority) => (
     <div
       key={priority.id}
@@ -89,6 +92,25 @@ const TaskStatusSection = ({ title }: Props) => {
     </div>
   ));
 
+  const addTaskHandler = (e: SyntheticEvent) => {
+    e.preventDefault()
+    dispatch(addTask(taskValues))
+    setTimeout(() => {
+      setIsOpen(false)
+    },1000)
+  }
+
+  const conditionalTasksFilter = () => {
+    switch(titleRef.current?.textContent){
+      case "Backlog":
+        return tasks?.map((task) => task.inBacklog && <Task key={task} data={task}/>)
+      case "In Progress":
+        return tasks?.map((task) => task.inProgress && task.title)
+      case "Completed":
+        return tasks?.map((task) => task.completed && task.title)  
+    }
+  }
+console.log(tasks)
   const backlogForm = (
     <form>
       <TaskPriorityContainer selected={taskValues.priority}>
@@ -110,16 +132,18 @@ const TaskStatusSection = ({ title }: Props) => {
         onChange={taskValuesHandler}
         value={taskValues.content}
       />
-      <TaskAddButton>Add</TaskAddButton>
+      <TaskAddButton onClick={addTaskHandler}>Add</TaskAddButton>
     </form>
   );
-  
+    
+
 //!JSX
   return (
     <TaskStatusSectionContainer>
       <h1 ref={titleRef}>{title}</h1>
       {isOpen && backlogForm}
       <button onClick={() => setIsOpen(!isOpen)}>{isOpen ? "x" : "+"}</button>
+      {conditionalTasksFilter()}
     </TaskStatusSectionContainer>
   );
 };
